@@ -1,15 +1,18 @@
 var http = require('http');
 var server = http.createServer();
+var fs = require('fs');
 
 server.on('request', function (request, response) {
     response.setHeader("Content-Type", "text/html; charset=utf-8");
-  if (request.method === 'GET' && request.url === '/index.html') {
-	  fs.readFile('./index.html', 'utf-8', function(err, data) {
-	  response.write(data)});
+  if (request.method === 'GET' && request.url === '/') {
+	  fs.readFile('../index.html', 'utf-8', function(err, data) {
+	  response.write(data);
+	  response.end()});
   }	  else {
             response.statusCode = 404;
-            response.write('<h1>404</h1>');
-            response.end();
-  };
+			response.write('<img src="https://www.404.ie/assets/img/logo_blue.png" alt="cat">');
+			response.end();
+  }
+			
 });
   server.listen(8080);
